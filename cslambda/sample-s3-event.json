@@ -1,0 +1,38 @@
+{
+    "Records": [
+        {
+            "eventVersion": "2.0",
+            "eventSource": "aws:s3",
+            "awsRegion": "us-east-1",
+            "eventTime": "2016-12-07T18:49:27.811Z",
+            "eventName": "ObjectCreated:Put",
+            "userIdentity": {
+                "principalId": "AWS:AIDAJGJBKMDDOPCZKT4TS"
+            },
+            "requestParameters": {
+                "sourceIPAddress": "208.107.143.138"
+            },
+            "responseElements": {
+                "x-amz-request-id": "D1BE5251282F5F69",
+                "x-amz-id-2": "YDU//fqR3qPwuerqWfaS35k3etEDsmw6cjxgVPKrCjECO5kagrymyvAE5EHIzPhi"
+            },
+            "s3": {
+                "s3SchemaVersion": "1.0",
+                "configurationId": "6e9f59ab-c7dc-4fb0-9a07-4c967e8b4298",
+                "bucket": {
+                    "name": "assembletotango",
+                    "ownerIdentity": {
+                        "principalId": "A1C93CIJYQ1RQA"
+                    },
+                    "arn": "arn:aws:s3:::assembletotango"
+                },
+                "object": {
+                    "key": "cslamda.zip",
+                    "size": 594501,
+                    "eTag": "7b19e140aed8350e7a0bffcb23ce47ae",
+                    "sequencer": "00584859B74678CE93"
+                }
+            }
+        }
+    ]
+}
