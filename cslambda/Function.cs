@@ -4,31 +4,47 @@ using System.Text;
 
 using Amazon.Lambda.Core;
 using Amazon.Lambda.KinesisEvents;
-
-// Assembly attribute to enable the Lambda function's JSON input to be converted into a .NET class.
-[assembly: LambdaSerializerAttribute(typeof(Amazon.Lambda.Serialization.Json.JsonSerializer))]
+using Amazon.Lambda.S3Events;
 
 namespace cslambda
 {
     public class Function
     {
-
-        public void FunctionHandler(KinesisEvent kinesisEvent, ILambdaContext context)
+        public void StreamHandler(Stream input, ILambdaContext context)
         {
-            context.Logger.LogLine($"Beginning to process {kinesisEvent.Records.Count} records...");
-
-            foreach (var record in kinesisEvent.Records)
-            {
-                context.Logger.LogLine($"Event ID: {record.EventId}");
-                context.Logger.LogLine($"Event Name: {record.EventName}");
-
-                string recordData = GetRecordContents(record.Kinesis);
-                context.Logger.LogLine($"Record Data:");
-                context.Logger.LogLine(recordData);
-            }
-
-            context.Logger.LogLine("Stream processing complete.");
+                using (var rdr = new StreamReader(input))
+                {
+                    context.Logger.LogLine($"received {rdr.ReadToEnd()} as input");
+                }
+                   
         }
+
+        public void S3Handler(S3Event s3Event, ILambdaContext context) 
+        {
+            context.Logger.LogLine($"Processing {s3Event.Records.Count} records ...");
+            foreach (var rec in s3Event.Records)
+            {
+                context.Logger.LogLine($"{rec.S3.Object.Key} changed in {rec.S3.Bucket.Name}");
+            }
+            
+        }
+
+        //public void FunctionHandler(KinesisEvent kinesisEvent, ILambdaContext context)
+        //{
+        //    context.Logger.LogLine($"Beginning to process {kinesisEvent.Records.Count} records...");
+
+        //    foreach (var record in kinesisEvent.Records)
+        //    {
+        //        context.Logger.LogLine($"Event ID: {record.EventId}");
+        //        context.Logger.LogLine($"Event Name: {record.EventName}");
+
+        //        string recordData = GetRecordContents(record.Kinesis);
+        //        context.Logger.LogLine($"Record Data:");
+        //        context.Logger.LogLine(recordData);
+        //    }
+
+        //    context.Logger.LogLine("Stream processing complete.");
+        //}
 
         private string GetRecordContents(KinesisEvent.Record streamRecord)
         {

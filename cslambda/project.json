@@ -9,6 +9,7 @@
         "Amazon.Lambda.Core": "1.0.0*",
         "Amazon.Lambda.Serialization.Json": "1.0.0",
         "Amazon.Lambda.KinesisEvents": "1.0.0",
+        "Amazon.Lambda.S3Events": "1.0.0",
         "Amazon.Lambda.Tools": {
             "type": "build",
             "version": "1.0.0-preview1"
